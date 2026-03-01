@@ -1,3 +1,4 @@
+//KONVERSI JAM, MENIT, DETIK
 #include <iostream>
 using namespace std;
 int main() {
