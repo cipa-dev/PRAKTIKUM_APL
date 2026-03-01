@@ -51,8 +51,10 @@ int main() {
             int detik;
             cout << "masukkan jumlah detik: ";
             cin >> detik;
-            cout << "hasil: " << detik / 3600 << " jam dan "
-                << detik / 60 << " menit" << endl;
+            int jam = detik / 3600;
+            int menit = (detik % 3600) / 60;
+            cout << "hasil: " << jam << " jam dan "
+                << menit << " menit" << endl;
         }
         else if (pilihan == 4) {
             cout << "TERIMA KASIH!" << endl;
