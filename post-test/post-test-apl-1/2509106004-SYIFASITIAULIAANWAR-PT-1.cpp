@@ -42,11 +42,13 @@ int main() {
                  << jam * 3600 << " detik" << endl;
         }
         else if (pilihan == 2) {
-            int menit;
-            cout << "masukkan jumlah menit: ";
-            cin >> menit;
-            cout << "hasil: " << menit / 60 << " jam dan "
-                 << menit * 60 << " detik" << endl;
+        int menit;
+        cout << "masukkan jumlah menit: ";
+        cin >> menit;
+        int jam = menit / 60;
+        int sisaMenit = menit % 60;
+        cout << "hasil: " << jam << " jam "
+            << sisaMenit << " menit" << endl;
         }
         else if (pilihan == 3) {
             int detik;
