@@ -1,8 +1,7 @@
 #include <iostream>
-#include <string>
-#include <cstdlib>
-#include <iomanip>
-
+#include <string> //untuk mnggunakan string
+#include <cstdlib> //untuk system("cls") dan system("pause")
+#include <iomanip> //untuk membuat tampilan rapi pd tabel
 using namespace std;
 struct User{
     string username;
