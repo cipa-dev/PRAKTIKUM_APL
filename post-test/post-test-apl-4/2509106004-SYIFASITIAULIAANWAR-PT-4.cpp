@@ -139,10 +139,10 @@ void tampilProduk(Produk *produk, int jumlahProduk){
     }
     garis(55);
     cout<<left<<setw(5)<<"No"
-        <<setw(20)<<"Nama"
-        <<setw(15)<<"Warna"
-        <<setw(10)<<"Harga"
-        <<setw(5)<<"Stok"<<endl;
+        <<setw(20)<<"nama"
+        <<setw(15)<<"warna"
+        <<setw(10)<<"harga"
+        <<setw(5)<<"stok"<<endl;
     garis(55);
     for(int i=0;i<jumlahProduk;i++){
         cout<<left<<setw(5)<<i+1
