@@ -1,0 +1,1 @@
+//setelah struct, wajib menampilkan mau dimasukkan dimana
