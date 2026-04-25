@@ -15,15 +15,17 @@ struct Produk{
     int harga;
     int stok;
 };
+
 bool inputAngka(int &x){
     cin >> x;
     if(cin.fail()){
         cin.clear();
         cin.ignore(1000,'\n');
-        return false;
+        throw runtime_error("input harus berupa angka!");
     }
     return true;
 }
+
 void tampilProduk(Produk *produk, int jumlahProduk);
 void tambahProduk(Produk *produk, int *jumlahProduk);
 void ubahProduk(Produk *produk, int jumlahProduk);
@@ -32,20 +34,24 @@ bool login(User *user, int jumlahUser);
 void registrasi(User *user, int *jumlahUser);
 int totalStok(Produk *produk, int n);
 void garis(); 
-// sort
 void garis(int n);
+
+// sort
 void bubbleSortNamaDesc(Produk *produk, int n);
 void selectionSortHargaAsc(Produk *produk, int n);
 void insertionSortStokAsc(Produk *produk, int n);
+
 // search
 void linearSearchNama(Produk *produk, int n, string cari);
 void binarySearchHarga(Produk *produk, int n, int cari);
+
 int main(){
     User user[100];
     Produk produk[100];
     int jumlahUser = 0;
     int jumlahProduk = 0;
     int menuUtama;
+
     do{
         system("cls");
         cout<<"-------------------------------"<<endl;
@@ -55,11 +61,15 @@ int main(){
         cout<<"2. registrasi"<<endl;
         cout<<"3. keluar"<<endl;
         cout<<"pilih menu : ";
-        if(!inputAngka(menuUtama)){
-            cout<<"input harus angka"<<endl;
+
+        try{
+            inputAngka(menuUtama);
+        }catch(exception &e){
+            cout<<e.what()<<endl;
             system("pause");
             continue;
         }
+
         if(menuUtama==1){
             if(login(user,jumlahUser)){
                 int menuAdmin;
@@ -76,11 +86,15 @@ int main(){
                     cout<<"6. sorting produk"<<endl;
                     cout<<"7. searching produk"<<endl;
                     cout<<"pilih menu : ";
-                    if(!inputAngka(menuAdmin)){
-                        cout<<"input harus angka"<<endl;
+
+                    try{
+                        inputAngka(menuAdmin);
+                    }catch(exception &e){
+                        cout<<e.what()<<endl;
                         system("pause");
                         continue;
                     }
+
                     if(menuAdmin==1){
                         tampilProduk(produk,jumlahProduk);
                         int total = totalStok(produk,jumlahProduk);
@@ -106,11 +120,15 @@ int main(){
                             cout<<"3. sort stok (ascending)"<<endl;
                             cout<<"4. kembali"<<endl;
                             cout<<"pilih : ";
-                            if(!inputAngka(pilihSort)){
-                                cout<<"input harus angka"<<endl;
+
+                            try{
+                                inputAngka(pilihSort);
+                            }catch(exception &e){
+                                cout<<e.what()<<endl;
                                 system("pause");
                                 continue;
                             }
+
                             if(pilihSort==1){
                                 bubbleSortNamaDesc(produk,jumlahProduk);
                                 cout<<"berhasil sorting nama desc"<<endl;
@@ -138,58 +156,70 @@ int main(){
                             }
                         }while(pilihSort!=4);
                     }
-                    else if(menuAdmin==6){
-    int pilihSort;
-    do{
-    }while(pilihSort!=4);
-}
-else if(menuAdmin==7){
-    int pilihCari;
-    do{
-        system("cls");
-        cout<<"------ MENU SEARCHING ------"<<endl;
-        cout<<"1. cari nama produk"<<endl;
-        cout<<"2. cari harga produk"<<endl;
-        cout<<"3. kembali"<<endl;
-        cout<<"pilih : ";
 
-        if(!inputAngka(pilihCari)){
-            cout<<"input harus angka"<<endl;
-            system("pause");
-            continue;
-        }
+                    else if(menuAdmin==6){ // tetap seperti kode kamu (tidak diubah)
+                        int pilihSort;
+                        do{
+                        }while(pilihSort!=4);
+                    }
 
-        if(pilihCari==1){
-            cin.ignore();
-            string cari;
-            cout<<"masukkan nama produk : ";
-            getline(cin,cari);
+                    else if(menuAdmin==7){
+                        int pilihCari;
+                        do{
+                            system("cls");
+                            cout<<"------ MENU SEARCHING ------"<<endl;
+                            cout<<"1. cari nama produk"<<endl;
+                            cout<<"2. cari harga produk"<<endl;
+                            cout<<"3. kembali"<<endl;
+                            cout<<"pilih : ";
 
-            linearSearchNama(produk,jumlahProduk,cari);
-            system("pause");
-        }
-        else if(pilihCari==2){
-            int cari;
-            cout<<"masukkan harga : ";
-            inputAngka(cari);
+                            try{
+                                inputAngka(pilihCari);
+                            }catch(exception &e){
+                                cout<<e.what()<<endl;
+                                system("pause");
+                                continue;
+                            }
 
-            selectionSortHargaAsc(produk,jumlahProduk); // WAJIB untuk binary
+                            if(pilihCari==1){
+                                cin.ignore();
+                                string cari;
+                                cout<<"masukkan nama produk : ";
+                                getline(cin,cari);
+                                linearSearchNama(produk,jumlahProduk,cari);
+                                system("pause");
+                            }
+                            else if(pilihCari==2){
+                                int cari;
+                                cout<<"masukkan harga : ";
+                                try{
+                                    inputAngka(cari);
+                                }catch(exception &e){
+                                    cout<<e.what()<<endl;
+                                    system("pause");
+                                    continue;
+                                }
+                                selectionSortHargaAsc(produk,jumlahProduk); 
+                                binarySearchHarga(produk,jumlahProduk,cari);
+                                system("pause");
+                            }
+                        }while(pilihCari!=3);
+                    }
 
-            binarySearchHarga(produk,jumlahProduk,cari);
-            system("pause");
-        }
-
-    }while(pilihCari!=3);
-}
                 }while(menuAdmin!=5);
             }
         }
         else if(menuUtama==2){
             registrasi(user,&jumlahUser);
         }
+
     }while(menuUtama!=3);
+
     cout<<"terima kasih"<<endl;
 }
+
+// ================= FUNGSI ASLI =================
+
 bool login(User *user, int jumlahUser){
     string username,password;
     int kesempatan = 3;
@@ -200,6 +230,7 @@ bool login(User *user, int jumlahUser){
         cin>>username;
         cout<<"password : ";
         cin>>password;
+
         if(username=="admincipa" && password=="004"){
             return true;
         }
@@ -214,6 +245,7 @@ bool login(User *user, int jumlahUser){
     }
     return false;
 }
+
 void registrasi(User *user, int *jumlahUser){
     system("cls");
     cout<<"----------- REGISTRASI -----------"<<endl;
@@ -225,6 +257,7 @@ void registrasi(User *user, int *jumlahUser){
     cout<<"registrasi berhasil"<<endl;
     system("pause");
 }
+
 void tampilProduk(Produk *produk, int jumlahProduk){
     system("cls");
     cout<<"----------------- DAFTAR PRODUK -----------------"<<endl;
@@ -249,6 +282,7 @@ void tampilProduk(Produk *produk, int jumlahProduk){
     }
     garis(55);
 }
+
 void tambahProduk(Produk *produk, int *jumlahProduk){
     system("cls");
     cout<<"------ tambah produk ------"<<endl;
@@ -257,37 +291,57 @@ void tambahProduk(Produk *produk, int *jumlahProduk){
     getline(cin,produk[*jumlahProduk].nama);
     cout<<"warna : ";
     getline(cin,produk[*jumlahProduk].warna);
+
     cout<<"harga : ";
-    while(!inputAngka(produk[*jumlahProduk].harga)){
-        cout<<"harus angka : ";
+    while(true){
+        try{
+            inputAngka(produk[*jumlahProduk].harga);
+            break;
+        }catch(exception &e){
+            cout<<e.what()<<" ulangi: ";
+        }
     }
+
     cout<<"stok : ";
-    while(!inputAngka(produk[*jumlahProduk].stok)){
-        cout<<"harus angka : ";
+    while(true){
+        try{
+            inputAngka(produk[*jumlahProduk].stok);
+            break;
+        }catch(exception &e){
+            cout<<e.what()<<" ulangi: ";
+        }
     }
+
     (*jumlahProduk)++;
     cout<<"produk berhasil ditambahkan"<<endl;
     system("pause");
 }
+
 void ubahProduk(Produk *produk, int jumlahProduk){
     tampilProduk(produk,jumlahProduk);
     int pilih;
     cout<<"pilih nomor produk : ";
-    if(!inputAngka(pilih)){
-        cout<<"input harus angka"<<endl;
+
+    try{
+        inputAngka(pilih);
+    }catch(exception &e){
+        cout<<e.what()<<endl;
         system("pause");
         return;
     }
+
     if(pilih>=1 && pilih<=jumlahProduk){
         cin.ignore();
         cout<<"nama baru : ";
         getline(cin,produk[pilih-1].nama);
         cout<<"warna baru : ";
         getline(cin,produk[pilih-1].warna);
+
         cout<<"harga baru : ";
         inputAngka(produk[pilih-1].harga);
         cout<<"stok baru : ";
         inputAngka(produk[pilih-1].stok);
+
         cout<<"produk berhasil diubah"<<endl;
     }
     else{
@@ -295,15 +349,20 @@ void ubahProduk(Produk *produk, int jumlahProduk){
     }
     system("pause");
 }
+
 void hapusProduk(Produk *produk, int *jumlahProduk){
     tampilProduk(produk,*jumlahProduk);
     int hapus;
     cout<<"pilih nomor produk : ";
-    if(!inputAngka(hapus)){
-        cout<<"input harus angka"<<endl;
+
+    try{
+        inputAngka(hapus);
+    }catch(exception &e){
+        cout<<e.what()<<endl;
         system("pause");
         return;
     }
+
     if(hapus>=1 && hapus<=*jumlahProduk){
         for(int i=hapus-1;i<(*jumlahProduk)-1;i++){
             produk[i]=produk[i+1];
@@ -316,21 +375,21 @@ void hapusProduk(Produk *produk, int *jumlahProduk){
     }
     system("pause");
 }
+
 int totalStok(Produk *produk, int n){
-    if(n==0){
-        return 0;
-    }
+    if(n==0) return 0;
     return produk[n-1].stok + totalStok(produk,n-1);
 }
+
 void garis(){
     cout<<"-----------------------------"<<endl;
 }
+
 void garis(int n){
-    for(int i=0;i<n;i++){
-        cout<<"-";
-    }
+    for(int i=0;i<n;i++) cout<<"-";
     cout<<endl;
 }
+
 void bubbleSortNamaDesc(Produk *produk, int n){
     for(int i=0;i<n-1;i++){
         for(int j=0;j<n-i-1;j++){
@@ -342,6 +401,7 @@ void bubbleSortNamaDesc(Produk *produk, int n){
         }
     }
 }
+
 void selectionSortHargaAsc(Produk *produk, int n){
     for(int i=0;i<n-1;i++){
         int min = i;
@@ -355,6 +415,7 @@ void selectionSortHargaAsc(Produk *produk, int n){
         produk[min] = temp;
     }
 }
+
 void insertionSortStokAsc(Produk *produk, int n){
     for(int i=1;i<n;i++){
         Produk key = produk[i];
@@ -366,6 +427,7 @@ void insertionSortStokAsc(Produk *produk, int n){
         produk[j+1] = key;
     }
 }
+
 void linearSearchNama(Produk *produk, int n, string cari){
     bool ketemu = false;
     for(int i=0;i<n;i++){
@@ -378,6 +440,7 @@ void linearSearchNama(Produk *produk, int n, string cari){
         cout<<"produk tidak ditemukan"<<endl;
     }
 }
+
 void binarySearchHarga(Produk *produk, int n, int cari){
     int low=0, high=n-1, mid, ketemu=-1;
     while(low<=high){
