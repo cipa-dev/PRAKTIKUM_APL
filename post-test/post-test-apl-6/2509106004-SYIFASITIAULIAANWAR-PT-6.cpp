@@ -142,7 +142,6 @@ int main(){
     do{
     }while(pilihSort!=4);
 }
-
 else if(menuAdmin==7){
     int pilihCari;
     do{
@@ -152,19 +151,16 @@ else if(menuAdmin==7){
         cout<<"2. cari harga produk"<<endl;
         cout<<"3. kembali"<<endl;
         cout<<"pilih : ";
-
         if(!inputAngka(pilihCari)){
             cout<<"input harus angka"<<endl;
             system("pause");
             continue;
         }
-
         if(pilihCari==1){
             cin.ignore();
             string cari;
             cout<<"masukkan nama produk : ";
             getline(cin,cari);
-
             linearSearchNama(produk,jumlahProduk,cari);
             system("pause");
         }
@@ -172,13 +168,10 @@ else if(menuAdmin==7){
             int cari;
             cout<<"masukkan harga : ";
             inputAngka(cari);
-
-            selectionSortHargaAsc(produk,jumlahProduk); // WAJIB untuk binary
-
+            selectionSortHargaAsc(produk,jumlahProduk); 
             binarySearchHarga(produk,jumlahProduk,cari);
             system("pause");
         }
-
     }while(pilihCari!=3);
 }
                 }while(menuAdmin!=5);
@@ -239,7 +232,6 @@ void tampilProduk(Produk *produk, int jumlahProduk){
         <<setw(10)<<"harga"
         <<setw(5)<<"stok"<<endl;
     garis(55);
-
     for(int i=0;i<jumlahProduk;i++){
         cout<<left<<setw(5)<<i+1
             <<setw(20)<<produk[i].nama

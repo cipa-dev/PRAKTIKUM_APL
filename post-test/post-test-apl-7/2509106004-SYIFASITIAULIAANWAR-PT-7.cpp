@@ -141,11 +141,8 @@ int main(){
                     else if(menuAdmin==6){
     int pilihSort;
     do{
-        // isi sorting
     }while(pilihSort!=4);
 }
-
-// ⬇️ TAMBAHKAN DI SINI
 else if(menuAdmin==7){
     int pilihCari;
     do{
